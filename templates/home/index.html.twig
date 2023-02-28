@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block body %}
+<header>
+    <h1>Bienvenue sur le blog !</h1>
+    <p>Donc voila c'est mon super blog. Je suis en train de vous le présentez c'est génial. Vraiment super content de ce projet !</p>
+</header>
+    <main>
+        <h2>Nos derniers articles !</h2>
+        <div class="row">
+            {% for article in latestArticles %}
+                <article class="card my-3 col-6">
+                    <a href="{{ path("show_article", {slug: article.slug}) }}"><h3>{{ article.title }}</h3></a>
+                    <p>{{ article.content|slice(0,50) ~ " ..." }}</p>
+                    <small>publié le {{ article.createdAt|date('D/M/Y H:m') }}, mis à jour : {{ article.updatedAt|date('D/M/Y H:m') }}<br>
+                    Publié par : {{ article.author }}<br>
+                    Catégorie :<br>
+                    {% for category in article.category %}
+                        <a href="#" style="color:{{ category.color }};">{{ category }}</a>
+                    {% endfor %}
+                    </small>
+                </article>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

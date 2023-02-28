@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.content }}</p>
+    <img src="{{ article.featuredImage }}">
+    <p>{{ article.featuredText }}</p>
+    <small>publié le {{ article.createdAt|date('D/M/Y H:m') }}<br>
+    Publié par : {{ article.author }}<br>
+    Catégorie :
+        {% for category in article.category %}
+            <a href="#" style="color:{{ category.color }};">{{ category }}</a>
+        {% endfor %}
+    </small>
+
+    <h2>Commentaires :</h2>
+    {% if form is defined %}
+        {{ form(form) }}
+    {% endif %}
+
+    {% for comment in article.comments %}
+        {% if comment.isActive == true %}
+        <div class="card my-3">
+            <div class="card-body">
+                {{ comment.content }}<br>
+                <small>Par : {{ comment.author }} le {{ comment.createdAt|date("d/m/y H:m") }}</small>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

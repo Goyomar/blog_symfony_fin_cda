@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ articles[0].category[0].name }}{% endblock %}
+
+{% block body %}
+    <h1>Les articles de la catégorie {{ articles[0].category[0].name }}</h1>
+    <div class="row">
+        {% for article in articles %}
+            <article class="card my-3 col-6">
+                <a href="{{ path("show_article", {slug: article.slug}) }}"><h3>{{ article.title }}</h3></a>
+                <p>{{ article.content|slice(0,50) ~ " ..." }}</p>
+                <small>publié le {{ article.createdAt|date('D/M/Y H:m') }}, mis à jour : {{ article.updatedAt|date('D/M/Y H:m') }}<br>
+                    Publié par : {{ article.author }}<br>
+                    Catégorie :<br>
+                    {% for category in article.category %}
+                        <a href="#" style="color:{{ category.color }};">{{ category }}</a>
+                    {% endfor %}
+                </small>
+            </article>
+        {% endfor %}
+    </div>
+    {{ knp_pagination_render(articles) }}
+{% endblock %}

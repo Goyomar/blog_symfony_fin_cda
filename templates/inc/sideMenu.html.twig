@@ -1,0 +1,8 @@
+<h1>Liste des catégories :</h1>
+<ul>
+    {% for category in categories %}
+        <li><a href="{{ path('app_category', {id: category.id}) }}">
+            {{ category.name }}
+        </a></li>
+    {% endfor %}
+</ul>
